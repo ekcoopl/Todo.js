@@ -79,11 +79,11 @@ body {
     background-color: #A672FF;
 }
 
-.img_number3 {
+.main__img-edit{
     margin-left: auto;
 }
 
-.img_number4 {
+.main__img-delete{
     margin: 0 24px 0 16px;
 }
 
