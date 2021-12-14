@@ -30,6 +30,7 @@ body {
     border: none;
     padding: 10px 20px;
     background-color:#F1F1F1;
+    font-size: 17px;
 
 }
 
@@ -55,6 +56,7 @@ body {
 .main__tasks {
     width: 100%;
     padding: 0;
+
 }
 
 .main__tasks-item {
@@ -64,6 +66,14 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    list-style: none;
+}
+
+.hyphenation{
+    max-width: 450px;
+    white-space: nowrap; /* Текст не переносится */
+    overflow: hidden; /* Обрезаем всё за пределами блока */
+    text-overflow: ellipsis;
 }
 
 .main__task-btnOFF{
@@ -83,8 +93,16 @@ body {
     margin-left: auto;
 }
 
+.main__img-edit:hover{
+    background-color: #A672FF;
+}
+
 .main__img-delete{
     margin: 0 24px 0 16px;
+}
+
+.main__img-delete:hover{
+    background-color: #A672FF;
 }
 
 .main__task-btnON {
@@ -93,6 +111,7 @@ body {
     border-radius: 50%;
     background-color: #A672FF;
     margin: 0 10px 0 24px;
+
 }
 
 .completed__task {
