@@ -47,6 +47,11 @@ body {
     outline: none;
 }
 
+.header__btn:hover{
+    background-color: #3217cf;
+}
+
+
 .main {
     margin: 56px 0;
     min-height: 135px;
@@ -76,7 +81,7 @@ body {
     text-overflow: ellipsis;
 }
 
-.main__task-btnOFF{
+.main__task-btn{
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -85,7 +90,7 @@ body {
     cursor: pointer;
 }
 
-.main__task-btnOFF:hover{
+.main__task-btn:hover{
     background-color: #A672FF;
 }
 
@@ -105,13 +110,8 @@ body {
     background-color: #A672FF;
 }
 
-.main__task-btnON {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: #A672FF;
-    margin: 0 10px 0 24px;
-
+.crossOut {
+    background-image: linear-gradient(transparent 7px,#cccccc 7px,#e42929 9px,transparent 9px);
 }
 
 .completed__task {

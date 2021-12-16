@@ -1,10 +1,12 @@
-const tasks = [];
+let tasks = [];
 
 function createListItem(task) {
   const input = document.createElement("input");
   input.type = "checkbox";
-  input.value = task.completed;
-  input.classList.add("main__task-btnOFF");
+  input.id = task.id;
+  input.checked = task.completed;
+  input.classList.add("main__task-btn");
+  input.onclick = test;
 
   const p = document.createElement("p");
   p.innerHTML = task.text;
@@ -14,20 +16,28 @@ function createListItem(task) {
   imgChange.src = "/img/change.png";
   imgChange.className = "main__img-edit";
 
-  const imgBasket = document.createElement("img");
+  let imgBasket = document.createElement("img");
   imgBasket.src = "/img/bask.png";
   imgBasket.className = "main__img-delete";
+  imgBasket.onclick = removeTask;
 
-  const ul = document.querySelector(".main__tasks");
-
-  const li = document.createElement("li");
+  let li = document.createElement("li");
   li.className = "main__tasks-item";
+  li.id = task.id;
 
   li.append(input);
   li.append(p);
   li.append(imgChange);
   li.append(imgBasket);
-  ul.prepend(li);
+  return li;
+}
+
+function renderTasks(arrTasks) {
+  const ul = document.querySelector(".main__tasks");
+  ul.innerHTML = "";
+  arrTasks.forEach((item) => {
+    ul.prepend(createListItem(item));
+  });
 }
 
 let max = 0;
@@ -40,29 +50,33 @@ tasks.forEach((item) => {
 const input = document.querySelector(".header__input");
 function addTask() {
   if (input.value != "") {
-    const task = { id: ++max, text: input.value, completed: false };
+    let task = { id: ++max, text: input.value, completed: input.checked };
     tasks.push(task);
-    createListItem(task);
+    renderTasks(tasks);
     input.value = "";
   }
 }
 
-main.onclick = function (event) {
-  if (event.target.className != "main__img-delete") return;
-  let deleteList = event.target.closest(".main__tasks-item");
-  deleteList.remove();
-};
+function removeTask(event) {
+  let idTask = event.target.parentNode.id;
+  let newTasks = tasks.filter((item) => item.id != idTask);
+  tasks = newTasks;
+  renderTasks(tasks);
+}
 
-function checkboxing(){
-    const findCheckbox = document.querySelector('.main__task-btnOFF');
-    const checkbox = findCheckbox.value;
-    console.log(checkbox);
-    if (checkbox) {
-        checkbox.value = false;
-    }else{
-        checkbox.value = true;
+function test(event) {
+  let idTask = event.target.id;
+  let p = event.target.nextSibling;
+  tasks.map((item) => {
+    if (idTask == item.id) {
+      item.completed = !item.completed;
+      p.classList.add('crossOut');
     }
-} 
+  });
+  console.log(p);
+  renderTasks(tasks);
+}
 
-
-
+/* [{id:1, text: 'Купить молоко' , completed: false}
+    {id:2, text: 'Купить пиво' , completed: false}
+] */
