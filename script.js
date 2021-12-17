@@ -6,11 +6,11 @@ function createListItem(task) {
   input.id = task.id;
   input.checked = task.completed;
   input.classList.add("main__task-btn");
-  input.onclick = test;
+  input.onclick = performance;
 
   const p = document.createElement("p");
   p.innerHTML = task.text;
-  p.className = "hyphenation";
+  p.classList.add = "hyphenation";
 
   const imgChange = document.createElement("img");
   imgChange.src = "/img/change.png";
@@ -48,7 +48,7 @@ tasks.forEach((item) => {
 });
 
 const input = document.querySelector(".header__input");
-function addTask() {
+function addTask(event) {
   if (input.value != "") {
     let task = { id: ++max, text: input.value, completed: input.checked };
     tasks.push(task);
@@ -64,19 +64,50 @@ function removeTask(event) {
   renderTasks(tasks);
 }
 
-function test(event) {
+function performance(event) {
   let idTask = event.target.id;
-  let p = event.target.nextSibling;
   tasks.map((item) => {
     if (idTask == item.id) {
       item.completed = !item.completed;
-      p.classList.add('crossOut');
+      renderTasks(tasks);
+      if (item.completed) {
+        let li = document.getElementById(`${idTask}`);
+        let p = li.firstChild.nextSibling;
+        p.className = "crossOut";
+      }
     }
   });
-  console.log(p);
-  renderTasks(tasks);
+
+  /*   tasks.forEach((item)=>{
+    item 
+  }) */
 }
 
 /* [{id:1, text: 'Купить молоко' , completed: false}
     {id:2, text: 'Купить пиво' , completed: false}
 ] */
+
+/* function test() {
+  let p = document.querySelector(".hyphenation");
+  p.className = "crossOut";
+  console.log(p);
+} */
+
+
+// работа кнопки Completed  
+function selectCompletedBotton() {
+  let complitedTasks = tasks.filter((item) => item.completed == true);
+  let arrComplited = [];
+  arrComplited = complitedTasks;
+  console.log(arrComplited);
+  renderTasks(arrComplited);
+  //поиск и присвоение класса
+  //let addClassActive = document.querySelectorAll('.footer__filter-item');
+  //addClassActive.target.className('footer__item-active');
+  //console.log(addClassActive.target);
+}
+
+// работа кнопки All
+function selectAllBotton(){
+  renderTasks(tasks)
+}
