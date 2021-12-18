@@ -54,6 +54,7 @@ function addTask(event) {
     tasks.push(task);
     renderTasks(tasks);
     input.value = "";
+    showTaskAll();
   }
 }
 
@@ -69,45 +70,47 @@ function performance(event) {
   tasks.map((item) => {
     if (idTask == item.id) {
       item.completed = !item.completed;
-      renderTasks(tasks);
+      console.log(item);
       if (item.completed) {
         let li = document.getElementById(`${idTask}`);
         let p = li.firstChild.nextSibling;
         p.className = "crossOut";
       }
+      renderTasks(tasks);
     }
   });
-
-  /*   tasks.forEach((item)=>{
-    item 
-  }) */
 }
 
-/* [{id:1, text: 'Купить молоко' , completed: false}
-    {id:2, text: 'Купить пиво' , completed: false}
-] */
+function filter(bool) {
+  let complitedTasks = tasks.filter((item) => item.completed == bool);
+  renderTasks(complitedTasks);
+}
+const btnAll = document.querySelector(".footer__filter-item-All");
+const btnCompleted = document.querySelector(".footer__filter-item-Completed");
+const btnNoCompleted = document.querySelector(
+  ".footer__filter-item-NoCompleted"
+);
 
-/* function test() {
-  let p = document.querySelector(".hyphenation");
-  p.className = "crossOut";
-  console.log(p);
-} */
-
-
-// работа кнопки Completed  
-function selectCompletedBotton() {
-  let complitedTasks = tasks.filter((item) => item.completed == true);
-  let arrComplited = [];
-  arrComplited = complitedTasks;
-  console.log(arrComplited);
-  renderTasks(arrComplited);
-  //поиск и присвоение класса
-  //let addClassActive = document.querySelectorAll('.footer__filter-item');
-  //addClassActive.target.className('footer__item-active');
-  //console.log(addClassActive.target);
+function showTaskAll() {
+  nullStyleButton();
+  renderTasks(tasks);
+  btnAll.classList.add("footer__item-active");
 }
 
-// работа кнопки All
-function selectAllBotton(){
-  renderTasks(tasks)
+function showTaskCompleted() {
+  nullStyleButton();
+  filter(true);
+  btnCompleted.classList.add("footer__item-active");
+}
+
+function showTask_NotCompleted() {
+  nullStyleButton();
+  filter(false);
+  btnNoCompleted.classList.add("footer__item-active");
+}
+
+function nullStyleButton() {
+  btnAll.className = "footer__filter-item-All";
+  btnCompleted.className = "footer__filter-item-Completed";
+  btnNoCompleted.className = "footer__filter-item-NoCompleted";
 }

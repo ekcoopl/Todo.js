@@ -16,22 +16,30 @@
   <body>
     <div class="content">
       <div class="header">
-        <input class="header__input" type="text"  />
-        <button id="Add" class="header__btn" onclick="addTask()" >Add</button>
+        <input class="header__input" type="text" />
+        <button id="Add" class="header__btn" onclick="addTask()">Add</button>
       </div>
       <div class="main" id="main">
-        <ul class="main__tasks">
-        </ul>
+        <ul class="main__tasks"></ul>
       </div>
       <div class="footer">
         <div class="footer__filter">
-          <button class="footer__filter-item" onclick="selectAllBotton()">All</button>
-          <buttom class="footer__filter-item" onclick="selectCompletedBotton()">Completed</buttom>
-          <buttom class="footer__filter-item" onclick="">Not Completed</buttom>
+          <button class="footer__filter-item-All" onclick="showTaskAll()">
+            All
+          </button>
+          <buttom
+            class="footer__filter-item-Completed"
+            onclick="showTaskCompleted()"
+            >Completed</buttom
+          >
+          <buttom
+            class="footer__filter-item-NoCompleted"
+            onclick="showTask_NotCompleted()"
+            >Not Completed</buttom
+          >
         </div>
       </div>
     </div>
     <script src="/script.js"></script>
   </body>
 </html>
-
