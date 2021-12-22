@@ -12,9 +12,15 @@ function createListItem(task) {
   p.innerHTML = task.text;
   p.classList.add = "hyphenation";
 
+  const inputChange = document.createElement("input");
+  inputChange.value = task.text;
+  inputChange.style = "display: none";
+  inputChange.onkeyup = pressEnter;
+
   const imgChange = document.createElement("img");
   imgChange.src = "/img/change.png";
   imgChange.className = "main__img-edit";
+  imgChange.onclick = changeTask;
 
   let imgBasket = document.createElement("img");
   imgBasket.src = "/img/bask.png";
@@ -27,6 +33,7 @@ function createListItem(task) {
 
   li.append(input);
   li.append(p);
+  li.append(inputChange);
   li.append(imgChange);
   li.append(imgBasket);
   return li;
@@ -48,6 +55,7 @@ tasks.forEach((item) => {
 });
 
 const input = document.querySelector(".header__input");
+
 function addTask(event) {
   if (input.value != "") {
     let task = { id: ++max, text: input.value, completed: input.checked };
@@ -58,12 +66,42 @@ function addTask(event) {
   }
 }
 
+let changeTask = (event) => {
+  const img = event.target;
+  let input = img.previousSibling;
+  let p = input.previousSibling;
+  input.value = p.innerHTML;
+  p.style = "display: none";
+  input.style = "display: block";
+};
+
+function pressEnter(event) {
+  if (event.key == "Enter") {
+    const img = event.target;         //
+    let input = img.previousSibling;  //
+    const idTask = img.parentNode.id; //повтор кода из changeTask()
+    tasks.map((item) => {
+      if (item.id == idTask) {
+        item.text == input.value;
+      }
+    });
+    //renderTasks(tasks)
+    console.log(tasks);
+  }
+}
+
 function removeTask(event) {
   let idTask = event.target.parentNode.id;
   let newTasks = tasks.filter((item) => item.id != idTask);
   tasks = newTasks;
   renderTasks(tasks);
 }
+
+const filterTasks = () => {
+  const activeTask = tasks.filter((item) => item.completed == true);
+  const completedTask = tasks.filter((item) => item.completed == false);
+  tasks = [...activeTask, ...completedTask];
+};
 
 function performance(event) {
   let idTask = event.target.id;
@@ -74,8 +112,10 @@ function performance(event) {
       if (item.completed) {
         let li = document.getElementById(`${idTask}`);
         let p = li.firstChild.nextSibling;
+        console.log(p);
         p.className = "crossOut";
       }
+      filterTasks();
       renderTasks(tasks);
     }
   });
