@@ -10,12 +10,13 @@ function createListItem(task) {
 
   const p = document.createElement("p");
   p.innerHTML = task.text;
-  p.classList.add = "hyphenation";
+  p.className = "hyphenation";
 
   const inputChange = document.createElement("input");
   inputChange.value = task.text;
   inputChange.style = "display: none";
   inputChange.onkeyup = pressEnter;
+  inputChange.className = "changeInput";
 
   const imgChange = document.createElement("img");
   imgChange.src = "/img/change.png";
@@ -66,27 +67,31 @@ function addTask(event) {
   }
 }
 
-let changeTask = (event) => {
-  const img = event.target;
-  let input = img.previousSibling;
-  let p = input.previousSibling;
+function changeTask(event) {
+  const li = event.target.parentNode.childNodes;
+  const p = li[1];
+  const input = li[2];
   input.value = p.innerHTML;
   p.style = "display: none";
   input.style = "display: block";
-};
+}
 
 function pressEnter(event) {
   if (event.key == "Enter") {
-    const img = event.target;         //
-    let input = img.previousSibling;  //
-    const idTask = img.parentNode.id; //повтор кода из changeTask()
+    const li = event.target.parentNode;
+    const objectLi = li.childNodes;
+    const p = objectLi[1];
+    const input = objectLi[2];
+    p.innerHTML = `${input.value}`;
+    input.style = "display: none";
+    p.style = "display: block";
+
     tasks.map((item) => {
-      if (item.id == idTask) {
-        item.text == input.value;
+      if (item.id == li.id) {
+        item.text = input.value;
       }
     });
-    //renderTasks(tasks)
-    console.log(tasks);
+   
   }
 }
 
