@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Tasks</title>
+    <link rel="shortcut icon" href="/img/titel_main.png" type="image/x-icon">
     <link rel="stylesheet" href="/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,19 +16,32 @@
   </head>
   <body>
     <div class="content">
-      <div class="header">
-        <input class="header__input" type="text"  />
-        <button id="Add" class="header__btn" onclick="addTask()" >Add</button>
-      </div>
+      <form class="header" onclick="addTask(); return false;">
+        <input
+          class="header__input"
+          type="text"
+          placeholder="Введите новую задачу"
+        />
+        <button type="submit" id="Add" class="header__btn">Add</button>
+      </form>
       <div class="main" id="main">
-        <ul class="main__tasks">
-        </ul>
+        <ul class="main__tasks"></ul>
       </div>
       <div class="footer">
         <div class="footer__filter">
-          <button class="footer__filter-item footer__item-active">All</button>
-          <buttom class="footer__filter-item">Completed</buttom>
-          <buttom class="footer__filter-item">Not Completed</buttom>
+          <button class="footer__filter-item-All" onclick="showTaskAll()">
+            All
+          </button>
+          <buttom
+            class="footer__filter-item-Completed"
+            onclick="showTaskCompleted()"
+            >Completed</buttom
+          >
+          <buttom
+            class="footer__filter-item-NoCompleted"
+            onclick="showTask_NotCompleted()"
+            >Not Completed</buttom
+          >
         </div>
       </div>
     </div>
