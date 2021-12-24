@@ -10,7 +10,7 @@ function createListItem(task) {
 
   const p = document.createElement("p");
   p.innerHTML = task.text;
-  p.className = "hyphenation";
+  p.className = task.class;
 
   const inputChange = document.createElement("input");
   inputChange.value = task.text;
@@ -59,7 +59,12 @@ const input = document.querySelector(".header__input");
 
 function addTask(event) {
   if (input.value != "") {
-    let task = { id: ++max, text: input.value, completed: input.checked };
+    let task = {
+      id: ++max,
+      text: input.value,
+      class: "hyphenation",
+      completed: input.checked,
+    };
     tasks.push(task);
     renderTasks(tasks);
     input.value = "";
@@ -91,7 +96,6 @@ function pressEnter(event) {
         item.text = input.value;
       }
     });
-   
   }
 }
 
@@ -105,24 +109,19 @@ function removeTask(event) {
 const filterTasks = () => {
   const activeTask = tasks.filter((item) => item.completed == true);
   const completedTask = tasks.filter((item) => item.completed == false);
-  tasks = [...activeTask, ...completedTask];
 };
 
 function performance(event) {
   let idTask = event.target.id;
+
   tasks.map((item) => {
     if (idTask == item.id) {
       item.completed = !item.completed;
-      console.log(item);
-      if (item.completed) {
-        let li = document.getElementById(`${idTask}`);
-        let p = li.firstChild.nextSibling;
-        console.log(p);
-        p.className = "crossOut";
-      }
-      filterTasks();
-      renderTasks(tasks);
-    }
+      (item.completed) ? item.class = "crossOut": item.class = "hyphenation";
+     
+    } 
+    renderTasks(tasks);
+    filterTasks();
   });
 }
 

@@ -72,17 +72,27 @@ body {
 
 .hyphenation {
   max-width: 450px;
-  white-space: nowrap; /* Текст не переносится */
-  overflow: hidden; /* Обрезаем всё за пределами блока */
+  white-space: nowrap; 
+  overflow: hidden; 
   text-overflow: ellipsis;
+}
+
+.crossOut {
+  background-image: linear-gradient(
+    transparent 7px,
+    #cccccc 7px,
+    #e42929 9px,
+    transparent 9px
+  );
 }
 
 .changeInput {
   outline: none;
+  border: none;
   background: transparent;
   border-left: 0;
   padding-left: 0;
-  height: 46px;
+  height: 50px;
   font-family: "Inter";
   font-size: 16px;
   width: 400px;
@@ -116,15 +126,6 @@ body {
 
 .main__img-delete:hover {
   background-color: #a672ff;
-}
-
-.crossOut {
-  background-image: linear-gradient(
-    transparent 7px,
-    #cccccc 7px,
-    #e42929 9px,
-    transparent 9px
-  );
 }
 
 .completed__task {
